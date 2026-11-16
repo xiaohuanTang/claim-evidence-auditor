@@ -4,6 +4,8 @@
 
 [Live results page](https://xiaohuantang.github.io/claim-evidence-auditor/) · [20-claim dataset](data/claims.json) · [Evaluation protocol](docs/evaluation.md) · [Badcases](docs/badcases.md)
 
+![Results page](assets/results-page.png)
+
 ---
 
 ## The problem
@@ -97,6 +99,7 @@ I froze v1.1 at 17/20 instead of tuning the prompt against these 20 cases. The b
 ├── docs/evaluation.md        # rubric, metrics, limitations
 ├── docs/badcases.md          # 3 boundary errors
 ├── prompts/v1.1-audit.md     # evidence-grading prompt
+├── assets/results-page.png   # screenshot of the results page
 ├── site/                     # static results page (GitHub Pages)
 └── .github/workflows/pages.yml
 ```
