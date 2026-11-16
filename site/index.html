@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AI Claim Evidence Auditor — a 20-claim Dify workflow case study with three-version accuracy, cost, and badcase analysis.">
+  <title>AI Claim Evidence Auditor — Results</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div class="hero-main">
+        <p class="eyebrow">AI product case study · Dify Workflow</p>
+        <h1>AI Claim Evidence Auditor</h1>
+        <p class="lede">Audit an academic claim against a paper's evidence — not just its wording. Three workflow versions, one 20-claim test set, and the tradeoffs behind the numbers.</p>
+        <div class="hero-links">
+          <a href="https://github.com/xiaohuanTang/claim-evidence-auditor">GitHub repo</a>
+          <a href="https://github.com/xiaohuanTang/claim-evidence-auditor/blob/main/data/claims.json">20 claims</a>
+          <a href="https://github.com/xiaohuanTang/claim-evidence-auditor/blob/main/docs/evaluation.md">Evaluation protocol</a>
+        </div>
+      </div>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Toggle dark mode">Dark mode</button>
+    </header>
+
+    <main>
+      <section class="kpis" id="kpis" aria-label="Headline metrics"></section>
+
+      <section class="flow-section" aria-label="Workflow overview">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">How it works</p>
+            <h2>Rules for hard constraints, LLM for gray-area judgment</h2>
+          </div>
+          <p class="section-note">v1.1 keeps the v1 structure. Only the evidence rubric and output hygiene changed.</p>
+        </div>
+        <div class="flow" role="list">
+          <div class="flow-step" role="listitem"><span class="flow-index">01</span><strong>Claim</strong><span>one short proposition</span></div>
+          <span class="flow-arrow" aria-hidden="true">→</span>
+          <div class="flow-step" role="listitem"><span class="flow-index">02</span><strong>Citation precheck</strong><span>Code A + IF + Code B</span></div>
+          <span class="flow-arrow" aria-hidden="true">→</span>
+          <div class="flow-step" role="listitem"><span class="flow-index">03</span><strong>Evidence retrieval</strong><span>paper knowledge base · top 10</span></div>
+          <span class="flow-arrow" aria-hidden="true">→</span>
+          <div class="flow-step" role="listitem"><span class="flow-index">04</span><strong>LLM grading</strong><span>Supported / Weak / Unsupported</span></div>
+          <span class="flow-arrow" aria-hidden="true">→</span>
+          <div class="flow-step" role="listitem"><span class="flow-index">05</span><strong>Output guard</strong><span>Code C · JSON + label contract</span></div>
+        </div>
+        <p class="flow-caption">Out-of-range citations return at step 02 — before retrieval and the LLM — with 0 LLM tokens.</p>
+      </section>
+
+      <section class="panel" aria-labelledby="results-heading">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Results</p>
+            <h2 id="results-heading">20-claim constructed test set</h2>
+          </div>
+          <p class="section-note">n=20 · DeepSeek <code>deepseek-flash</code> · temperature 0 · same retrieval depth across versions</p>
+        </div>
+
+        <div class="controls">
+          <div class="filters" role="group" aria-label="Filter results">
+            <button class="filter is-active" type="button" data-filter="all" aria-pressed="true">All <span class="filter-count" id="count-all">20</span></button>
+            <button class="filter" type="button" data-filter="errors" aria-pressed="false">v1.1 errors <span class="filter-count" id="count-errors">3</span></button>
+            <button class="filter" type="button" data-filter="precheck" aria-pressed="false">Precheck <span class="filter-count" id="count-precheck">2</span></button>
+          </div>
+          <div class="legend" aria-label="Label legend">
+            <span class="legend-item"><span class="dot good"></span>Supported</span>
+            <span class="legend-item"><span class="dot warning"></span>Weak</span>
+            <span class="legend-item"><span class="dot critical"></span>Unsupported</span>
+            <span class="legend-item"><span class="dot error"></span>ERROR</span>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table id="results-table">
+            <caption class="sr-only">Per-claim labels and workflow cost for v0, v1, and v1.1</caption>
+            <thead>
+              <tr>
+                <th scope="col" class="num">#</th>
+                <th scope="col">Claim</th>
+                <th scope="col">Human</th>
+                <th scope="col">v0</th>
+                <th scope="col">v1</th>
+                <th scope="col">v1.1</th>
+                <th scope="col">Route</th>
+                <th scope="col" class="num">v1.1 tokens</th>
+              </tr>
+            </thead>
+            <tbody id="results-body"></tbody>
+          </table>
+        </div>
+        <p class="table-note">“v1.1 errors” shows claims where v1.1 disagrees with the human label. The v0 format error (#14) is visible in the v0 column.</p>
+      </section>
+
+      <section class="badcases" aria-labelledby="badcases-heading">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Badcases</p>
+            <h2 id="badcases-heading">Where the rubric, not retrieval, is the bottleneck</h2>
+          </div>
+          <p class="section-note">Kept intentionally — not tuned away.</p>
+        </div>
+        <div class="badcase-grid" id="badcase-grid"></div>
+      </section>
+
+      <section class="notes" aria-labelledby="notes-heading">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Method & limits</p>
+            <h2 id="notes-heading">What this page does and does not claim</h2>
+          </div>
+        </div>
+        <div class="notes-grid">
+          <div class="note">
+            <h3>Constructed, not a benchmark</h3>
+            <p>The 20 claims were written for directional validation. There is no statistical-significance claim and no general-purpose accuracy claim.</p>
+          </div>
+          <div class="note">
+            <h3>Fake citations are hard-rule cases</h3>
+            <p>v0 also caught both fake citations in this run. That was a coincidence of the test set. v1's advantage is deterministic interception and zero LLM tokens for those cases.</p>
+          </div>
+          <div class="note">
+            <h3>Accuracy has a cost</h3>
+            <p>v1.1 improves accuracy from 65% to 85% versus v1, but tokens rise 15.7% and latency rises 1.58s. The page reports both sides.</p>
+          </div>
+          <div class="note">
+            <h3>Public-safe by design</h3>
+            <p>Only short claims, labels, routes, and aggregate metrics are published. The paper full text, evidence quotes, API keys, and private run logs are not included.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>Built with Dify Workflow + DeepSeek. Static results page; no live API calls.</span>
+      <a href="https://github.com/xiaohuanTang/claim-evidence-auditor">Source & data</a>
+    </footer>
+  </div>
+
+  <script src="data.js"></script>
+  <script>
+    (() => {
+      const data = window.AUDIT_DATA;
+      if (!data) return;
+
+      const $ = (sel) => document.querySelector(sel);
+      const fmt = (n) => new Intl.NumberFormat('en-US').format(n);
+      const pct = (n) => `${Math.round(n * 100)}%`;
+      const escapeHtml = (s) => String(s).replace(/[&<>"']/g, (c) => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      }[c]));
+
+      const labelClass = (label) => ({
+        Supported: 'good',
+        Weak: 'warning',
+        Unsupported: 'critical',
+        ERROR: 'error'
+      }[label] || 'error');
+
+      const badge = (label) => `<span class="badge ${labelClass(label)}"><span class="dot"></span>${escapeHtml(label)}</span>`;
+
+      const m = data.metrics;
+      const v0 = m.v0, v1 = m.v1, v11 = m['v1.1'];
+      const tokenDelta = ((v11.avg_tokens - v1.avg_tokens) / v1.avg_tokens) * 100;
+      const latencyDelta = v11.avg_elapsed - v1.avg_elapsed;
+
+      const kpiCard = ({ kicker, value, detail, meter, accent }) => `
+        <article class="kpi ${accent ? 'kpi-accent' : ''}">
+          <p class="kpi-kicker">${escapeHtml(kicker)}</p>
+          <p class="kpi-value">${escapeHtml(value)}</p>
+          ${meter == null ? '' : `<div class="meter" aria-hidden="true"><span style="width:${meter}%"></span></div>`}
+          <p class="kpi-detail">${detail}</p>
+        </article>`;
+
+      $('#kpis').innerHTML = [
+        kpiCard({
+          kicker: 'v0 · naive RAG',
+          value: pct(v0.accuracy),
+          detail: `${v0.correct} / ${v0.n} correct · ${v0.format_errors}/20 format errors`,
+          meter: v0.accuracy * 100
+        }),
+        kpiCard({
+          kicker: 'v1 · guardrails',
+          value: pct(v1.accuracy),
+          detail: `${v1.correct} / ${v1.n} correct · ${v1.format_errors}/20 format errors`,
+          meter: v1.accuracy * 100
+        }),
+        kpiCard({
+          kicker: 'v1.1 · evidence rubric',
+          value: pct(v11.accuracy),
+          detail: `${v11.correct} / ${v11.n} correct · Weak risk ${v11.weak_risk}/${v11.weak_n} · Hypothesis ${v11.hyp_hits}/${v11.hyp_n}`,
+          meter: v11.accuracy * 100,
+          accent: true
+        }),
+        kpiCard({
+          kicker: 'v1.1 vs v1',
+          value: `+${Math.round((v11.accuracy - v1.accuracy) * 100)}pp`,
+          detail: `Token +${tokenDelta.toFixed(1)}% · Latency +${latencyDelta.toFixed(2)}s · same workflow`,
+          meter: null
+        })
+      ].join('');
+
+      const explanations = {
+        4: 'Citation marker vs cited content: the paper has [6], but the retrieved snippet does not include the cited article. The annotation treats the marker plus a matching statement as sufficient.',
+        7: 'Citation marker vs cited content: same boundary as #4, with [9].',
+        12: 'General algorithm fact vs this paper’s algorithm: Timsort is background knowledge; the strict “quantitative claim needs measurement” rule is applied too broadly.'
+      };
+
+      const rows = data.rows;
+      const errorCount = rows.filter((r) => r['v1.1'].label !== r.expected).length;
+      const precheckCount = rows.filter((r) => r['v1.1'].route === 'precheck').length;
+      $('#count-all').textContent = rows.length;
+      $('#count-errors').textContent = errorCount;
+      $('#count-precheck').textContent = precheckCount;
+
+      $('#results-body').innerHTML = rows.map((r) => {
+        const isError = r['v1.1'].label !== r.expected;
+        const isPrecheck = r['v1.1'].route === 'precheck';
+        return `
+          <tr class="${isError ? 'is-error' : ''}" data-error="${isError}" data-precheck="${isPrecheck}">
+            <td class="num">${r.id}</td>
+            <td class="claim">${escapeHtml(r.claim)}</td>
+            <td>${badge(r.expected)}</td>
+            <td>${badge(r.v0.label)}</td>
+            <td>${badge(r.v1.label)}</td>
+            <td>${badge(r['v1.1'].label)}</td>
+            <td><span class="route ${isPrecheck ? 'precheck' : 'rag'}">${escapeHtml(r['v1.1'].route)}</span></td>
+            <td class="num">${fmt(r['v1.1'].tokens)}</td>
+          </tr>`;
+      }).join('');
+
+      const badcases = [4, 7, 12].map((id) => rows.find((r) => r.id === id)).filter(Boolean);
+      $('#badcase-grid').innerHTML = badcases.map((r) => `
+        <article class="badcase-card">
+          <div class="badcase-top">
+            <span class="badcase-id">#${r.id}</span>
+            <span class="badcase-route">${escapeHtml(r['v1.1'].route)}</span>
+          </div>
+          <p class="badcase-claim">${escapeHtml(r.claim)}</p>
+          <div class="badcase-labels">
+            <span>Human ${badge(r.expected)}</span>
+            <span>v1.1 ${badge(r['v1.1'].label)}</span>
+          </div>
+          <p class="badcase-note">${escapeHtml(explanations[r.id] || '')}</p>
+        </article>`).join('');
+
+      const filterButtons = [...document.querySelectorAll('.filter')];
+      const applyFilter = (filter) => {
+        filterButtons.forEach((button) => {
+          const active = button.dataset.filter === filter;
+          button.classList.toggle('is-active', active);
+          button.setAttribute('aria-pressed', String(active));
+        });
+        document.querySelectorAll('#results-body tr').forEach((row) => {
+          const show = filter === 'all'
+            || (filter === 'errors' && row.dataset.error === 'true')
+            || (filter === 'precheck' && row.dataset.precheck === 'true');
+          row.hidden = !show;
+        });
+      };
+      filterButtons.forEach((button) => button.addEventListener('click', () => applyFilter(button.dataset.filter)));
+
+      const root = document.documentElement;
+      const themeButton = $('#theme-toggle');
+      const setTheme = (theme) => {
+        root.dataset.theme = theme;
+        themeButton.textContent = theme === 'dark' ? 'Light mode' : 'Dark mode';
+        themeButton.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+      };
+      let stored = null;
+      try { stored = localStorage.getItem('audit-theme'); } catch (_) { /* ignore */ }
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+      setTheme(stored === 'light' || stored === 'dark' ? stored : (prefersDark ? 'dark' : 'light'));
+      themeButton.addEventListener('click', () => {
+        const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+        setTheme(next);
+        try { localStorage.setItem('audit-theme', next); } catch (_) { /* ignore */ }
+      });
+    })();
+  </script>
+</body>
+</html>

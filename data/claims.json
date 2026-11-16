@@ -1,0 +1,142 @@
+[
+  {
+    "id": 1,
+    "claim": "标准冒泡排序最坏/平均约 n(n-1)/2 次比较，时间复杂度 O(n²)",
+    "expected": "Supported",
+    "expected_fake": false,
+    "expected_hypothesis": false
+  },
+  {
+    "id": 2,
+    "claim": "冒泡排序空间复杂度 O(1)",
+    "expected": "Supported",
+    "expected_fake": false,
+    "expected_hypothesis": false
+  },
+  {
+    "id": 3,
+    "claim": "提前终止优化在最好情况下时间复杂度 O(n)",
+    "expected": "Supported",
+    "expected_fake": false,
+    "expected_hypothesis": false
+  },
+  {
+    "id": 4,
+    "claim": "鸡尾酒排序对序列两端局部有序的数据更有效",
+    "expected": "Supported",
+    "expected_fake": false,
+    "expected_hypothesis": false
+  },
+  {
+    "id": 5,
+    "claim": "梳排序由 Dobosiewicz 1980 提出，Lacey & Box 重新发现并命名",
+    "expected": "Supported",
+    "expected_fake": false,
+    "expected_hypothesis": false
+  },
+  {
+    "id": 6,
+    "claim": "自适应排序会根据数据特征切换/调整排序策略",
+    "expected": "Supported",
+    "expected_fake": false,
+    "expected_hypothesis": false
+  },
+  {
+    "id": 7,
+    "claim": "小规模/几乎有序数据上，插入排序往往比快速排序更高效",
+    "expected": "Supported",
+    "expected_fake": false,
+    "expected_hypothesis": false
+  },
+  {
+    "id": 8,
+    "claim": "若数据是若干已排序块的连接，可优先归并这些块",
+    "expected": "Supported",
+    "expected_fake": false,
+    "expected_hypothesis": false
+  },
+  {
+    "id": 9,
+    "claim": "随机数据上，BubbleSort-Topo 比传统冒泡慢 14.3%",
+    "expected": "Supported",
+    "expected_fake": false,
+    "expected_hypothesis": false
+  },
+  {
+    "id": 10,
+    "claim": "逆序数据上，BubbleSort-Topo 提升 16.7%",
+    "expected": "Supported",
+    "expected_fake": false,
+    "expected_hypothesis": false
+  },
+  {
+    "id": 11,
+    "claim": "梳排序的间隔缩小因子常取 1.3",
+    "expected": "Weak",
+    "expected_fake": false,
+    "expected_hypothesis": false
+  },
+  {
+    "id": 12,
+    "claim": "Timsort 会识别并合并自然升序/降序游程，在部分有序数据上接近线性",
+    "expected": "Weak",
+    "expected_fake": false,
+    "expected_hypothesis": false
+  },
+  {
+    "id": 13,
+    "claim": "针对性优化阶段“实际中通常远小于 O(n²)”",
+    "expected": "Weak",
+    "expected_fake": false,
+    "expected_hypothesis": false
+  },
+  {
+    "id": 14,
+    "claim": "摘要称“11%~16% 的性能提升”，但表 1 逆序数据是 16.7%",
+    "expected": "Weak",
+    "expected_fake": false,
+    "expected_hypothesis": false
+  },
+  {
+    "id": 15,
+    "claim": "地形分析准确性：山峰 3 个（20.0%）、山谷 4 个（26.7%）等",
+    "expected": "Weak",
+    "expected_fake": false,
+    "expected_hypothesis": false
+  },
+  {
+    "id": 16,
+    "claim": "山峰和山谷是数据极值点，排序中可能需要移动较长距离",
+    "expected": "Unsupported",
+    "expected_fake": false,
+    "expected_hypothesis": true
+  },
+  {
+    "id": 17,
+    "claim": "上坡区域可能已部分有序，下坡区域则可能需要反转",
+    "expected": "Unsupported",
+    "expected_fake": false,
+    "expected_hypothesis": true
+  },
+  {
+    "id": 18,
+    "claim": "冒泡排序最坏时间复杂度是 O(n log n) [12]",
+    "expected": "Unsupported",
+    "expected_fake": true,
+    "expected_hypothesis": false
+  },
+  {
+    "id": 19,
+    "claim": "总体时间复杂度仍为 O(n²)，但常数因子可能更小",
+    "expected": "Unsupported",
+    "expected_fake": false,
+    "expected_hypothesis": false
+  },
+  {
+    "id": 20,
+    "claim": "Timsort 是 Dobosiewicz 在 1980 年提出的 [13]",
+    "expected": "Unsupported",
+    "expected_fake": true,
+    "expected_hypothesis": false
+  }
+]

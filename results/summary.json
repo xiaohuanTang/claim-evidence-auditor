@@ -1,0 +1,787 @@
+{
+  "meta": {
+    "title": "AI Claim Evidence Auditor",
+    "date": "2026-11-16",
+    "n": 20,
+    "model": "deepseek-flash",
+    "provider": "DeepSeek",
+    "dataset": "20-claim constructed test set",
+    "note": "n=20 constructed evaluation; directional only, not a general benchmark."
+  },
+  "metrics": {
+    "v0": {
+      "n": 20,
+      "correct": 12,
+      "accuracy": 0.6,
+      "valid_n": 19,
+      "valid_correct": 12,
+      "valid_accuracy": 0.6316,
+      "format_errors": 1,
+      "fake_hits": 2,
+      "fake_n": 2,
+      "weak_risk": 1,
+      "weak_strict": 0,
+      "weak_n": 5,
+      "hyp_hits": 0,
+      "hyp_n": 2,
+      "avg_tokens": 2649.3,
+      "avg_rag_tokens": null,
+      "avg_elapsed": 2.731,
+      "routes": {
+        "baseline": 20,
+        "precheck": 0,
+        "rag": 0
+      }
+    },
+    "v1": {
+      "n": 20,
+      "correct": 13,
+      "accuracy": 0.65,
+      "valid_n": 20,
+      "valid_correct": 13,
+      "valid_accuracy": 0.65,
+      "format_errors": 0,
+      "fake_hits": 2,
+      "fake_n": 2,
+      "weak_risk": 2,
+      "weak_strict": 1,
+      "weak_n": 5,
+      "hyp_hits": 0,
+      "hyp_n": 2,
+      "avg_tokens": 2444.1,
+      "avg_rag_tokens": 2715.6,
+      "avg_elapsed": 2.701,
+      "routes": {
+        "baseline": 0,
+        "precheck": 2,
+        "rag": 18
+      }
+    },
+    "v1.1": {
+      "n": 20,
+      "correct": 17,
+      "accuracy": 0.85,
+      "valid_n": 20,
+      "valid_correct": 17,
+      "valid_accuracy": 0.85,
+      "format_errors": 0,
+      "fake_hits": 2,
+      "fake_n": 2,
+      "weak_risk": 5,
+      "weak_strict": 4,
+      "weak_n": 5,
+      "hyp_hits": 2,
+      "hyp_n": 2,
+      "avg_tokens": 2827.7,
+      "avg_rag_tokens": 3141.9,
+      "avg_elapsed": 4.28,
+      "routes": {
+        "baseline": 0,
+        "precheck": 2,
+        "rag": 18
+      }
+    }
+  },
+  "rows": [
+    {
+      "id": 1,
+      "claim": "标准冒泡排序最坏/平均约 n(n-1)/2 次比较，时间复杂度 O(n²)",
+      "expected": "Supported",
+      "v0": {
+        "label": "Supported",
+        "tokens": 2712,
+        "elapsed": 1.976,
+        "route": "baseline",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      },
+      "v1": {
+        "label": "Supported",
+        "tokens": 2732,
+        "elapsed": 2.429,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      },
+      "v1.1": {
+        "label": "Supported",
+        "tokens": 2997,
+        "elapsed": 3.833,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      }
+    },
+    {
+      "id": 2,
+      "claim": "冒泡排序空间复杂度 O(1)",
+      "expected": "Supported",
+      "v0": {
+        "label": "Supported",
+        "tokens": 2639,
+        "elapsed": 2.137,
+        "route": "baseline",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      },
+      "v1": {
+        "label": "Supported",
+        "tokens": 2644,
+        "elapsed": 2.518,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      },
+      "v1.1": {
+        "label": "Supported",
+        "tokens": 2910,
+        "elapsed": 3.183,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      }
+    },
+    {
+      "id": 3,
+      "claim": "提前终止优化在最好情况下时间复杂度 O(n)",
+      "expected": "Supported",
+      "v0": {
+        "label": "Supported",
+        "tokens": 1961,
+        "elapsed": 2.202,
+        "route": "baseline",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      },
+      "v1": {
+        "label": "Supported",
+        "tokens": 1958,
+        "elapsed": 2.359,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      },
+      "v1.1": {
+        "label": "Supported",
+        "tokens": 2194,
+        "elapsed": 3.134,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      }
+    },
+    {
+      "id": 4,
+      "claim": "鸡尾酒排序对序列两端局部有序的数据更有效",
+      "expected": "Supported",
+      "v0": {
+        "label": "Supported",
+        "tokens": 3200,
+        "elapsed": 1.854,
+        "route": "baseline",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      },
+      "v1": {
+        "label": "Supported",
+        "tokens": 3319,
+        "elapsed": 2.867,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      },
+      "v1.1": {
+        "label": "Weak",
+        "tokens": 3598,
+        "elapsed": 4.121,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": false
+      }
+    },
+    {
+      "id": 5,
+      "claim": "梳排序由 Dobosiewicz 1980 提出，Lacey & Box 重新发现并命名",
+      "expected": "Supported",
+      "v0": {
+        "label": "Supported",
+        "tokens": 2712,
+        "elapsed": 2.187,
+        "route": "baseline",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      },
+      "v1": {
+        "label": "Supported",
+        "tokens": 2724,
+        "elapsed": 2.546,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      },
+      "v1.1": {
+        "label": "Supported",
+        "tokens": 2950,
+        "elapsed": 3.534,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      }
+    },
+    {
+      "id": 6,
+      "claim": "自适应排序会根据数据特征切换/调整排序策略",
+      "expected": "Supported",
+      "v0": {
+        "label": "Supported",
+        "tokens": 3264,
+        "elapsed": 2.355,
+        "route": "baseline",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      },
+      "v1": {
+        "label": "Supported",
+        "tokens": 3324,
+        "elapsed": 3.055,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      },
+      "v1.1": {
+        "label": "Supported",
+        "tokens": 3636,
+        "elapsed": 4.033,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      }
+    },
+    {
+      "id": 7,
+      "claim": "小规模/几乎有序数据上，插入排序往往比快速排序更高效",
+      "expected": "Supported",
+      "v0": {
+        "label": "Supported",
+        "tokens": 3040,
+        "elapsed": 1.794,
+        "route": "baseline",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      },
+      "v1": {
+        "label": "Supported",
+        "tokens": 3031,
+        "elapsed": 2.253,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      },
+      "v1.1": {
+        "label": "Weak",
+        "tokens": 4057,
+        "elapsed": 7.515,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": false
+      }
+    },
+    {
+      "id": 8,
+      "claim": "若数据是若干已排序块的连接，可优先归并这些块",
+      "expected": "Supported",
+      "v0": {
+        "label": "Supported",
+        "tokens": 3236,
+        "elapsed": 2.373,
+        "route": "baseline",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      },
+      "v1": {
+        "label": "Supported",
+        "tokens": 3198,
+        "elapsed": 2.467,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      },
+      "v1.1": {
+        "label": "Supported",
+        "tokens": 3425,
+        "elapsed": 2.459,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      }
+    },
+    {
+      "id": 9,
+      "claim": "随机数据上，BubbleSort-Topo 比传统冒泡慢 14.3%",
+      "expected": "Supported",
+      "v0": {
+        "label": "Supported",
+        "tokens": 3120,
+        "elapsed": 2.253,
+        "route": "baseline",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      },
+      "v1": {
+        "label": "Supported",
+        "tokens": 3091,
+        "elapsed": 2.836,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      },
+      "v1.1": {
+        "label": "Supported",
+        "tokens": 3343,
+        "elapsed": 3.11,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      }
+    },
+    {
+      "id": 10,
+      "claim": "逆序数据上，BubbleSort-Topo 提升 16.7%",
+      "expected": "Supported",
+      "v0": {
+        "label": "Supported",
+        "tokens": 2876,
+        "elapsed": 2.07,
+        "route": "baseline",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      },
+      "v1": {
+        "label": "Supported",
+        "tokens": 2897,
+        "elapsed": 2.419,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      },
+      "v1.1": {
+        "label": "Supported",
+        "tokens": 3108,
+        "elapsed": 3.528,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      }
+    },
+    {
+      "id": 11,
+      "claim": "梳排序的间隔缩小因子常取 1.3",
+      "expected": "Weak",
+      "v0": {
+        "label": "Supported",
+        "tokens": 2645,
+        "elapsed": 1.658,
+        "route": "baseline",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": false
+      },
+      "v1": {
+        "label": "Supported",
+        "tokens": 2645,
+        "elapsed": 2.344,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": false
+      },
+      "v1.1": {
+        "label": "Weak",
+        "tokens": 3017,
+        "elapsed": 3.519,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      }
+    },
+    {
+      "id": 12,
+      "claim": "Timsort 会识别并合并自然升序/降序游程，在部分有序数据上接近线性",
+      "expected": "Weak",
+      "v0": {
+        "label": "Supported",
+        "tokens": 1919,
+        "elapsed": 1.941,
+        "route": "baseline",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": false
+      },
+      "v1": {
+        "label": "Supported",
+        "tokens": 1927,
+        "elapsed": 2.222,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": false
+      },
+      "v1.1": {
+        "label": "Unsupported",
+        "tokens": 2656,
+        "elapsed": 5.153,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": false
+      }
+    },
+    {
+      "id": 13,
+      "claim": "针对性优化阶段“实际中通常远小于 O(n²)”",
+      "expected": "Weak",
+      "v0": {
+        "label": "Unsupported",
+        "tokens": 1570,
+        "elapsed": 4.235,
+        "route": "baseline",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": false
+      },
+      "v1": {
+        "label": "Unsupported",
+        "tokens": 1422,
+        "elapsed": 3.477,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": false
+      },
+      "v1.1": {
+        "label": "Weak",
+        "tokens": 1631,
+        "elapsed": 3.765,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      }
+    },
+    {
+      "id": 14,
+      "claim": "摘要称“11%~16% 的性能提升”，但表 1 逆序数据是 16.7%",
+      "expected": "Weak",
+      "v0": {
+        "label": "ERROR",
+        "tokens": 3798,
+        "elapsed": 7.64,
+        "route": "baseline",
+        "parse_error": true,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": false
+      },
+      "v1": {
+        "label": "Weak",
+        "tokens": 3395,
+        "elapsed": 4.921,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      },
+      "v1.1": {
+        "label": "Weak",
+        "tokens": 4950,
+        "elapsed": 13.24,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      }
+    },
+    {
+      "id": 15,
+      "claim": "地形分析准确性：山峰 3 个（20.0%）、山谷 4 个（26.7%）等",
+      "expected": "Weak",
+      "v0": {
+        "label": "Supported",
+        "tokens": 2589,
+        "elapsed": 2.352,
+        "route": "baseline",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": false
+      },
+      "v1": {
+        "label": "Supported",
+        "tokens": 2720,
+        "elapsed": 3.308,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": false
+      },
+      "v1.1": {
+        "label": "Weak",
+        "tokens": 3130,
+        "elapsed": 4.626,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": true
+      }
+    },
+    {
+      "id": 16,
+      "claim": "山峰和山谷是数据极值点，排序中可能需要移动较长距离",
+      "expected": "Unsupported",
+      "v0": {
+        "label": "Weak",
+        "tokens": 3592,
+        "elapsed": 4.294,
+        "route": "baseline",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": false
+      },
+      "v1": {
+        "label": "Weak",
+        "tokens": 3702,
+        "elapsed": 5.536,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": false
+      },
+      "v1.1": {
+        "label": "Unsupported",
+        "tokens": 4291,
+        "elapsed": 7.622,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": true,
+        "correct": true
+      }
+    },
+    {
+      "id": 17,
+      "claim": "上坡区域可能已部分有序，下坡区域则可能需要反转",
+      "expected": "Unsupported",
+      "v0": {
+        "label": "Supported",
+        "tokens": 2599,
+        "elapsed": 4.497,
+        "route": "baseline",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": false
+      },
+      "v1": {
+        "label": "Supported",
+        "tokens": 2404,
+        "elapsed": 3.596,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": false
+      },
+      "v1.1": {
+        "label": "Unsupported",
+        "tokens": 2574,
+        "elapsed": 3.634,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": true,
+        "correct": true
+      }
+    },
+    {
+      "id": 18,
+      "claim": "冒泡排序最坏时间复杂度是 O(n log n) [12]",
+      "expected": "Unsupported",
+      "v0": {
+        "label": "Unsupported",
+        "tokens": 2781,
+        "elapsed": 2.123,
+        "route": "baseline",
+        "parse_error": false,
+        "fake_citation": true,
+        "hypothesis": false,
+        "correct": true
+      },
+      "v1": {
+        "label": "Unsupported",
+        "tokens": 0,
+        "elapsed": 0.275,
+        "route": "precheck",
+        "parse_error": false,
+        "fake_citation": true,
+        "hypothesis": false,
+        "correct": true
+      },
+      "v1.1": {
+        "label": "Unsupported",
+        "tokens": 0,
+        "elapsed": 1.143,
+        "route": "precheck",
+        "parse_error": false,
+        "fake_citation": true,
+        "hypothesis": false,
+        "correct": true
+      }
+    },
+    {
+      "id": 19,
+      "claim": "总体时间复杂度仍为 O(n²)，但常数因子可能更小",
+      "expected": "Unsupported",
+      "v0": {
+        "label": "Supported",
+        "tokens": 1744,
+        "elapsed": 2.61,
+        "route": "baseline",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": false
+      },
+      "v1": {
+        "label": "Supported",
+        "tokens": 1748,
+        "elapsed": 2.314,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": false,
+        "correct": false
+      },
+      "v1.1": {
+        "label": "Unsupported",
+        "tokens": 2087,
+        "elapsed": 4.179,
+        "route": "rag",
+        "parse_error": false,
+        "fake_citation": false,
+        "hypothesis": true,
+        "correct": true
+      }
+    },
+    {
+      "id": 20,
+      "claim": "Timsort 是 Dobosiewicz 在 1980 年提出的 [13]",
+      "expected": "Unsupported",
+      "v0": {
+        "label": "Unsupported",
+        "tokens": 989,
+        "elapsed": 2.063,
+        "route": "baseline",
+        "parse_error": false,
+        "fake_citation": true,
+        "hypothesis": false,
+        "correct": true
+      },
+      "v1": {
+        "label": "Unsupported",
+        "tokens": 0,
+        "elapsed": 0.271,
+        "route": "precheck",
+        "parse_error": false,
+        "fake_citation": true,
+        "hypothesis": false,
+        "correct": true
+      },
+      "v1.1": {
+        "label": "Unsupported",
+        "tokens": 0,
+        "elapsed": 0.275,
+        "route": "precheck",
+        "parse_error": false,
+        "fake_citation": true,
+        "hypothesis": false,
+        "correct": true
+      }
+    }
+  ]
+}
