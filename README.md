@@ -107,6 +107,7 @@ I froze v1.1 at 17/20 instead of tuning the prompt against these 20 cases. The b
 ## Limitations
 
 - `n=20` is a **constructed** test set for directional validation, not a benchmark.
+- The Dify workflow and knowledge base run locally; this repo is the public case study and results page, not a hosted Dify instance.
 - Retrieval uses Dify's economy keyword index, not a vector index. The next step would be a full-text reference index and a vector/hybrid retriever.
 - The paper and its full evidence text are not published. Only short claims, labels, and aggregate results are public.
 - No API keys, Dify credentials, or private run logs are included.
