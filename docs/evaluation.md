@@ -43,8 +43,10 @@ No citation parsing, no precheck, no JSON/label guard. The LLM output goes direc
 
 `IF false → Knowledge Retrieval → LLM → Code C → Aggregate → End`
 
-- **Code A** parses citation numbers and flags any `n < 1` or `n > 11`.
-- **Code B** returns a fixed `Unsupported` result with `fake_citation=true` for invalid citations. No retrieval or LLM call.
+- **Code A** parses citation numbers and computes `max_ref`, `min_ref`, and `invalid_ref`.
+- **IF precheck** short-circuits when `max_ref > 11` (a numeric condition, so the Dify UI shows `11` instead of an empty boolean field). No retrieval or LLM call.
+- **Code B** returns a fixed `Unsupported` result with `fake_citation=true` for invalid citations.
+- `n < 1` is not short-circuited by the IF; if it reaches the RAG branch, Code C's `invalid_ref` defense forces `fake_citation=true` and `Unsupported`.
 - **Code C** parses the LLM output, normalizes the label, truncates evidence, enforces the output schema, and marks `ERROR` when parsing fails.
 
 ### v1.1 — evidence rubric
