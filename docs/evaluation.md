@@ -17,7 +17,8 @@ The goal is to compare three workflow versions on the same claims and the same m
 - 20 short academic claims.
 - 10 `Supported`, 5 `Weak`, 5 `Unsupported`.
 - 2 claims contain fabricated citation numbers outside the paper's reference range (`[12]`, `[13]`; the paper has 11 references).
-- The full paper is not published. `data/claims.json` contains only the short claims and human labels.
+- The paper is published as an anonymized Markdown reconstruction in `paper/paper-anonymized.md`; the original `.doc`, cover page, author/course metadata, and score/signature are not included.
+- `data/claims.json` contains the 20 short claims and human labels.
 
 ## Label definitions
 

@@ -2,7 +2,7 @@
 
 **A small Dify workflow case study: audit an academic claim against a paper's evidence, not just its wording.**
 
-[Live results page](https://xiaohuantang.github.io/claim-evidence-auditor/) · [20-claim dataset](data/claims.json) · [Evaluation protocol](docs/evaluation.md) · [Badcases](docs/badcases.md)
+[Live results page](https://xiaohuantang.github.io/claim-evidence-auditor/) · [20-claim dataset](data/claims.json) · [Evaluation protocol](docs/evaluation.md) · [Badcases](docs/badcases.md) · [Anonymized paper](paper/paper-anonymized.md)
 
 ![Results page](assets/results-page.png)
 
@@ -99,6 +99,7 @@ I froze v1.1 at 17/20 instead of tuning the prompt against these 20 cases. The b
 ├── docs/evaluation.md        # rubric, metrics, limitations
 ├── docs/badcases.md          # 3 boundary errors
 ├── prompts/v1.1-audit.md     # evidence-grading prompt
+├── paper/                    # anonymized paper + original console-output figures
 ├── assets/results-page.png   # screenshot of the results page
 ├── site/                     # static results page (GitHub Pages)
 └── .github/workflows/pages.yml
@@ -109,7 +110,7 @@ I froze v1.1 at 17/20 instead of tuning the prompt against these 20 cases. The b
 - `n=20` is a **constructed** test set for directional validation, not a benchmark.
 - The Dify workflow and knowledge base run locally; this repo is the public case study and results page, not a hosted Dify instance.
 - Retrieval uses Dify's economy keyword index, not a vector index. The next step would be a full-text reference index and a vector/hybrid retriever.
-- The paper and its full evidence text are not published. Only short claims, labels, and aggregate results are public.
+- The paper is published as an anonymized Markdown reconstruction in `paper/`; the original `.doc`, cover page, author/course metadata, and score/signature are not included.
 - No API keys, Dify credentials, or private run logs are included.
 
 ## Status
