@@ -49,7 +49,7 @@ No citation parsing, no precheck, no JSON/label guard. The LLM output goes direc
 
 ### v1.1 — evidence rubric
 
-Same workflow as v1. Only three changes:
+The evaluated v1.1 had the same workflow as v1 and three changes:
 
 1. The evidence-grading prompt distinguishes **"the paper says it"** from **"the paper provides checkable evidence."**
 2. Code C strips DeepSeek thinking blocks before JSON parsing. The tag is written here as a code block so it is not confused with HTML:
@@ -59,6 +59,8 @@ Same workflow as v1. Only three changes:
 ```
 
 3. `max_tokens` increases from 1024 to 2048.
+
+> After the 20-claim run, a display-only **Code D** card was added to the v1.1 Dify app (`Aggregator → Code D → End`). It formats `display` for the run panel and does not affect labels, tokens, or metrics.
 
 ## Metrics
 

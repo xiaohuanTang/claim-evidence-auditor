@@ -45,6 +45,8 @@ flowchart LR
   H --> I[Evidence card]
 ```
 
+> A display-only **Code D** card was added to the v1.1 Dify app after the 20-claim evaluation. It formats the result for the run panel and does not change labels, tokens, or metrics.
+
 ### Three versions, one controlled comparison
 
 | Version | What changed | Why |
